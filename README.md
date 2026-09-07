@@ -22,4 +22,13 @@ Installation steps:
      
   2) Open the config.py folder using your text editor and change the FILEPATH and KEYPATH variables to the location you want to store your encrypted folder and its encryption key. It is recommended that both these files are stored in the same folder and I also recommend making copies of the key. DELETING THE KEY OR THE ENCRYPTED FILE MEANS YOU WILL LOSE ACCESS TO YOUR PASSWORDS. I highly suggest setting up a path to a USB flash drive as this can act as a physical key. Python requires an escape character between file paths so the FILEPATH string should look like this "H:\\please_do_not_delete\\secure_data.json.enc". You can change the name of file as long as the extension remains the same. The KEYPATH string can look like this "H:\\please_do_not_delete\\data_key.txt"
 
-  3) Open 
+  3) Open the pw.bat file and edit the two file paths in quotation marks. The first location should be the location of your python installation. It often is "C:\Users\username\AppData\Local\Python\pythoncore-3.14-64\python.exe". The second path should be the location of our script. Mine is "C:\Users\username\PythonScripts\password_locker-main\pw.py". The slashes do not need to have an escape sequence added to them.
+
+  4) Open up your Windows search bar and type in "Environment variables". The result should be "Edit the system environment variables". Open it and look for the button on the lower right that says "Environment Variables" and click on it. You may need to add a path variable for your python installation but it should already be set if you correctly installed python. Click on the Path variable and then on the edit button below the listbox. Click on new and paste the path of the folder belonging to our script. Click OK once you are done.
+
+  5) Now you have two options for running the generate_key.py file.
+     You can configure your text editor to run python files and execute it through a text editor or,
+     you can execute it through the windows command terminal. I will explain the second approach. Open the command prompt and use the cd command to change the active file directory to your scripts location. Example: cd C:\Users\username\PythonScripts\password_locker-main. Now type the following: python generate_key.py
+     This should print your key as a byte, the encrypted data set and your decrypted data set in your terminal. What this script just did is generate a encrypted data file and key file in our locations we configured in the config.py file. DO UNDER NO CIRCUMSTANCE RUN THIS SCRIPT AGAIN IF YOU HAVE PASSWORDS SAVED IN THE LOCKER. THIS WILL SCRIPT WILL OVERWRITE YOUR CURRENT KEY AND PASSWORDS IF YOU DO NOT CHANGE THE KEYPATH AND FILEPATH VARIABLE IN THE config.py FILE. I suggest deleting this script entirely or commenting out the entire file.
+
+  6) Now you should be able to run the script from the windows run command. Press WIN + R and input pw help to see a list of keywords.
