@@ -1,9 +1,6 @@
 from cryptography.fernet import Fernet
 import json
-
-filepath = "INSERT PATH OF ENCRYPTED FILES HERE\\secure_data.json.enc"
-keypath = "INSERT PATH OF KEY HERE\\data_key.txt"
-
+from config import FILEPATH, KEYPATH
 
 key = Fernet.generate_key()
 cipher_suite = Fernet(key)
@@ -18,16 +15,16 @@ if __name__ == "__main__":
     json_bytes = json.dumps(test_data).encode('utf-8')
     encrypted_data = cipher_suite.encrypt(json_bytes)
 
-    with open(filepath, 'wb') as file:
+    with open(FILEPATH, 'wb') as file:
         file.write(encrypted_data)
 
-    with open(keypath, 'wb') as file:
+    with open(KEYPATH, 'wb') as file:
         file.write(key)
 
-    with open(filepath, 'rb') as file:
+    with open(FILEPATH, 'rb') as file:
         encrypted_data = file.read()
 
-    with open(keypath, 'r') as file:
+    with open(KEYPATH, 'r') as file:
         cipher_key =  file.read()
 
     json_bytes = json.dumps(test_data).encode('utf-8')

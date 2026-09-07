@@ -1,13 +1,5 @@
 """An insecure password locker program"""
 
-"""
-TODO: 
- - refactor functions
- - error handling for prompts
- - error handling for empty files on startup
- - script for generating a new key and a set of files to use in application
-    
-"""
 
 #! python3
 import sys
@@ -15,9 +7,8 @@ import pyperclip
 import json
 from cryptography.fernet import Fernet
 from passwordGenerator import Password
+from config import FILEPATH, KEYPATH
 
-filepath = "INSERT PATH OF ENCRYPTED FILES HERE\\secure_data.json.enc"
-key_path = "INSERT PATH OF KEY HERE\\data_key.txt"
 
 KEYWORDS = {
     "help": 'Lists all available commands.',
@@ -34,7 +25,7 @@ HELP_TEXT = 'Usage: python pw.py <help> for list of commands in terminal / pw <h
 def get_key():
     """Retrieve key"""
     try:
-        with open(key_path, 'r') as k:
+        with open(KEYPATH, 'r') as k:
             key = k.read()
         return Fernet(key)
     except FileNotFoundError:
@@ -59,7 +50,7 @@ def encrypt_data(data):
 def read():
     """Reads data from file"""
     try:
-        with open(filepath, 'rb') as f:
+        with open(FILEPATH, 'rb') as f:
             encrypted_data = f.read()
         return encrypted_data
     except FileNotFoundError:
@@ -127,7 +118,7 @@ def write_account(data, name, password):
     data[name] = password
     source = encrypt_data(data)
     try:
-        with open(filepath, 'wb') as file:
+        with open(FILEPATH, 'wb') as file:
             file.write(source)
     except FileNotFoundError:
         print('Please insert passkey')
@@ -184,7 +175,7 @@ def delete_account():
             del data[account_name]
             new_source = encrypt_data(data)
             try:
-                with open(filepath, 'wb') as f:
+                with open(FILEPATH, 'wb') as f:
                     f.write(new_source)
             except FileNotFoundError:
                 print("Please insert passkey")
